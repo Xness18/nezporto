@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Munez Arizky — Web Developer & Designer</title>
+  <meta name="description" content="website profesional, modern, dan responsif. Hubungi Munez Arizky untuk landing page, company profile, dan web app.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg-primary:#0a0a0f;--bg-secondary:#12121a;--bg-card:#1a1a28;--bg-card-hover:#222236;
+      --accent:#6c63ff;--accent-light:#8b83ff;--accent-glow:rgba(108,99,255,0.3);
+      --cyan:#00d4aa;--cyan-glow:rgba(0,212,170,0.25);
+      --pink:#ff6b9d;--orange:#ff8a50;
+      --text-primary:#e8e8f0;--text-secondary:#9595a8;--text-muted:#6a6a80;
+      --border:rgba(255,255,255,0.06);--border-hover:rgba(108,99,255,0.3);
+      --shadow:0 8px 32px rgba(0,0,0,0.3);--shadow-lg:0 20px 60px rgba(0,0,0,0.4);
+      --radius:16px;--radius-lg:24px;--radius-xl:32px;
+      --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+      --nav-height:72px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    section{padding:100px 0}
+
+    /* === SCROLL ANIMATIONS === */
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}
+    .reveal-delay-3{transition-delay:0.3s}.reveal-delay-4{transition-delay:0.4s}
+
+    /* === NAVBAR === */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0;height:var(--nav-height);
+      background:rgba(10,10,15,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+      transition:var(--transition)}
+    .navbar.scrolled{background:rgba(10,10,15,0.95);box-shadow:var(--shadow)}
+    .nav-container{display:flex;align-items:center;justify-content:space-between;height:var(--nav-height)}
+    .logo a{font-size:1.5rem;font-weight:800;color:var(--text-primary);text-decoration:none;letter-spacing:-0.5px}
+    .logo span{background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-menu{display:flex;list-style:none;gap:8px;align-items:center}
+    .nav-link{text-decoration:none;font-weight:500;color:var(--text-secondary);padding:8px 16px;border-radius:10px;transition:var(--transition);font-size:0.95rem}
+    .nav-link:hover,.nav-link.active{color:var(--text-primary);background:rgba(108,99,255,0.1)}
+    .nav-cta{background:var(--accent)!important;color:#fff!important;padding:10px 22px!important;border-radius:30px!important;font-weight:600!important}
+    .nav-cta:hover{background:var(--accent-light)!important;transform:translateY(-2px);box-shadow:0 8px 24px var(--accent-glow)}
+    .hamburger{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer;padding:8px}
+
+    /* === HERO === */
+    .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:var(--nav-height)}
+    .hero::before{content:'';position:absolute;top:-50%;right:-30%;width:800px;height:800px;
+      background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);animation:float 8s ease-in-out infinite;pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:-30%;left:-20%;width:600px;height:600px;
+      background:radial-gradient(circle,var(--cyan-glow) 0%,transparent 70%);animation:float 10s ease-in-out infinite reverse;pointer-events:none}
+    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
+    .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(108,99,255,0.1);border:1px solid rgba(108,99,255,0.2);
+      padding:8px 20px;border-radius:30px;font-size:0.9rem;color:var(--accent-light);margin-bottom:24px}
+    .hero-badge .dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+    .hero h1{font-size:3.8rem;font-weight:800;line-height:1.15;margin-bottom:20px;letter-spacing:-1.5px}
+    .hero h1 .gradient-text{background:linear-gradient(135deg,var(--accent),var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-desc{font-size:1.2rem;color:var(--text-secondary);margin-bottom:36px;max-width:520px;line-height:1.8}
+    .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+    .btn{padding:14px 32px;border-radius:30px;font-weight:600;font-size:1rem;text-decoration:none;transition:var(--transition);display:inline-flex;align-items:center;gap:10px;border:none;cursor:pointer;font-family:inherit}
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px var(--accent-glow)}
+    .btn-primary:hover{background:var(--accent-light);transform:translateY(-3px);box-shadow:0 8px 32px var(--accent-glow)}
+    .btn-outline{background:transparent;color:var(--text-primary);border:1px solid var(--border-hover);box-shadow:none}
+    .btn-outline:hover{background:rgba(108,99,255,0.1);transform:translateY(-3px)}
+    .hero-stats{display:flex;gap:40px}
+    .hero-stat{text-align:left}
+    .hero-stat .number{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-stat .label{font-size:0.85rem;color:var(--text-muted);margin-top:2px}
+    .hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+    .code-window{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;width:100%;max-width:420px;box-shadow:var(--shadow-lg)}
+    .code-header{display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border)}
+    .code-dot{width:12px;height:12px;border-radius:50%}
+    .code-dot.red{background:#ff5f57}.code-dot.yellow{background:#febc2e}.code-dot.green{background:#28c840}
+    .code-body{padding:20px;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:2;color:var(--text-secondary)}
+    .code-body .keyword{color:var(--pink)}.code-body .string{color:var(--cyan)}.code-body .func{color:var(--accent-light)}.code-body .comment{color:var(--text-muted)}
+
+    /* === SECTION HEADER === */
+    .section-header{text-align:center;margin-bottom:64px}
+    .section-label{display:inline-flex;align-items:center;gap:8px;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:16px}
+    .section-title{font-size:2.8rem;font-weight:800;letter-spacing:-1px;margin-bottom:16px}
+    .section-subtitle{font-size:1.1rem;color:var(--text-secondary);max-width:600px;margin:0 auto}
+
+    /* === SERVICES === */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+    .service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 28px;transition:var(--transition);position:relative;overflow:hidden}
+    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));transform:scaleX(0);transition:transform 0.4s ease;transform-origin:left}
+    .service-card:hover{border-color:var(--border-hover);transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+    .service-card:hover::before{transform:scaleX(1)}
+    .service-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+    .service-icon.purple{background:rgba(108,99,255,0.12);color:var(--accent)}
+    .service-icon.cyan{background:rgba(0,212,170,0.12);color:var(--cyan)}
+    .service-icon.pink{background:rgba(255,107,157,0.12);color:var(--pink)}
+    .service-icon.orange{background:rgba(255,138,80,0.12);color:var(--orange)}
+    .service-card h3{font-size:1.3rem;font-weight:700;margin-bottom:12px}
+    .service-card p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:20px}
+    .service-price{font-size:0.85rem;color:var(--accent);font-weight:600}
+
+    /* === PROCESS === */
+    .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+    .process-grid::before{content:'';position:absolute;top:40px;left:15%;right:15%;height:2px;background:linear-gradient(90deg,var(--accent),var(--cyan));opacity:0.2}
+    .process-step{text-align:center;position:relative;z-index:1}
+    .process-number{width:64px;height:64px;border-radius:50%;background:var(--bg-card);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;color:var(--accent);margin:0 auto 20px;transition:var(--transition)}
+    .process-step:hover .process-number{background:var(--accent);color:#fff;box-shadow:0 0 30px var(--accent-glow)}
+    .process-step h4{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+    .process-step p{font-size:0.9rem;color:var(--text-secondary)}
+
+    /* === PROJECTS === */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px}
+    .project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:var(--transition)}
+    .project-card:hover{border-color:var(--border-hover);transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+    .project-preview{height:200px;background:linear-gradient(145deg,rgba(108,99,255,0.15),rgba(0,212,170,0.1));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+    .project-preview.p2{background:linear-gradient(145deg,rgba(255,107,157,0.15),rgba(255,138,80,0.1))}
+    .project-preview.p3{background:linear-gradient(145deg,rgba(0,212,170,0.15),rgba(108,99,255,0.1))}
+    .project-body{padding:28px}
+    .project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+    .project-tag{font-size:0.75rem;padding:4px 12px;border-radius:20px;background:rgba(108,99,255,0.1);color:var(--accent-light);font-weight:500}
+    .project-card h3{font-size:1.3rem;font-weight:700;margin-bottom:10px}
+    .project-card p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:20px}
+    .project-link{color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:var(--transition)}
+    .project-link:hover{gap:14px;color:var(--accent-light)}
+
+    /* === TESTIMONIALS === */
+    .testimonials-bg{background:var(--bg-secondary)}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+    .testimonial-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;transition:var(--transition)}
+    .testimonial-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
+    .testimonial-stars{color:#fbbf24;font-size:0.9rem;margin-bottom:16px;display:flex;gap:2px}
+    .testimonial-text{color:var(--text-secondary);font-style:italic;margin-bottom:20px;line-height:1.8}
+    .testimonial-author{display:flex;align-items:center;gap:14px}
+    .testimonial-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:#fff}
+    .testimonial-name{font-weight:600;font-size:0.95rem}
+    .testimonial-role{font-size:0.8rem;color:var(--text-muted)}
+
+    /* === CTA === */
+    .cta-section{position:relative;overflow:hidden}
+    .cta-card{background:linear-gradient(145deg,rgba(108,99,255,0.15),rgba(0,212,170,0.08));border:1px solid var(--border-hover);border-radius:var(--radius-xl);padding:64px;text-align:center;position:relative}
+    .cta-card h2{font-size:2.4rem;font-weight:800;margin-bottom:16px;letter-spacing:-0.5px}
+    .cta-card p{color:var(--text-secondary);font-size:1.1rem;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+    .cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-whatsapp{background:#25d366;color:#fff}.btn-whatsapp:hover{background:#20bd5a;transform:translateY(-3px);box-shadow:0 8px 24px rgba(37,211,102,0.3)}
+
+    /* === CONTACT === */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+    .contact-info-list{display:flex;flex-direction:column;gap:24px}
+    .contact-item{display:flex;align-items:center;gap:18px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);transition:var(--transition)}
+    .contact-item:hover{border-color:var(--border-hover);transform:translateX(8px)}
+    .contact-item-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .contact-item-icon.purple{background:rgba(108,99,255,0.12);color:var(--accent)}
+    .contact-item-icon.cyan{background:rgba(0,212,170,0.12);color:var(--cyan)}
+    .contact-item-icon.pink{background:rgba(255,107,157,0.12);color:var(--pink)}
+    .contact-item h4{font-size:0.95rem;font-weight:600;margin-bottom:4px}
+    .contact-item a,.contact-item p{color:var(--text-secondary);text-decoration:none;font-size:0.9rem}
+    .contact-item a:hover{color:var(--accent)}
+    .contact-form{display:flex;flex-direction:column;gap:16px}
+    .form-group input,.form-group textarea{width:100%;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;color:var(--text-primary);font-family:inherit;font-size:0.95rem;transition:var(--transition);outline:none;resize:vertical}
+    .form-group input:focus,.form-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+    .form-group textarea{min-height:140px}
+    .btn-submit{width:100%;justify-content:center}
+
+    /* === FOOTER === */
+    footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
+    .footer-content{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+    .footer-links{display:flex;gap:20px}
+    .footer-links a{color:var(--text-secondary);text-decoration:none;font-size:1.2rem;transition:var(--transition)}
+    .footer-links a:hover{color:var(--accent);transform:translateY(-3px)}
+    .footer-copy{color:var(--text-muted);font-size:0.9rem}
+
+    /* === RESPONSIVE === */
+    @media(max-width:1024px){
+      .hero h1{font-size:3rem}
+      .hero-grid{grid-template-columns:1fr;text-align:center}
+      .hero-desc{margin:0 auto 36px}
+      .hero-buttons{justify-content:center}
+      .hero-stats{justify-content:center}
+      .hero-visual{display:none}
+      .process-grid{grid-template-columns:repeat(2,1fr)}
+      .process-grid::before{display:none}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      section{padding:70px 0}
+      .nav-menu{display:none;position:fixed;top:0;right:-100%;width:260px;height:100vh;background:var(--bg-secondary);flex-direction:column;padding:100px 30px 30px;gap:8px;
+        transition:right 0.4s ease;box-shadow:var(--shadow-lg);z-index:999;border-left:1px solid var(--border)}
+      .nav-menu.active{display:flex;right:0}
+      .hamburger{display:block;z-index:1001}
+      .hero h1{font-size:2.4rem}
+      .section-title{font-size:2rem}
+      .services-grid,.projects-grid,.testimonials-grid{grid-template-columns:1fr}
+      .cta-card{padding:40px 24px}
+      .cta-card h2{font-size:1.8rem}
+      .hero-stats{flex-direction:column;gap:16px;align-items:center}
+      .footer-content{flex-direction:column;text-align:center}
+    }
+    @media(max-width:480px){
+      .hero h1{font-size:2rem}
+      .hero-buttons{flex-direction:column;align-items:center}
+      .process-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+  <div class="container nav-container">
+    <div class="logo"><a href="#home">Nez<span>Dev</span></a></div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="#contact" class="nav-link nav-cta">Hire Me</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge"><span class="dot"></span> Available for freelance work</div>
+        <h1><span class="gradient-text">Website Modern</span><br>untuk Bisnis Anda</h1>
+        <p class="hero-desc">Hi, saya Munez Arizky — Web Developer yang fokus menciptakan website profesional, cepat, dan menarik untuk membantu bisnis Anda tumbuh secara digital.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> Lihat Proyek</a>
+          <a href="#contact" class="btn btn-outline"><i class="far fa-paper-plane"></i> Hubungi Saya</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="number">1</div><div class="label">Proyek Selesai</div></div>
+          <div class="hero-stat"><div class="number">1</div><div class="label">Klien Puas</div></div>
+          <div class="hero-stat"><div class="number">2+</div><div class="label">Tahun Belajar</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="code-window">
+          <div class="code-header"><span class="code-dot red"></span><span class="code-dot yellow"></span><span class="code-dot green"></span></div>
+          <div class="code-body">
+            <span class="comment">// Building awesome websites</span><br>
+            <span class="keyword">const</span> <span class="func">developer</span> = {<br>
+            &nbsp;&nbsp;name: <span class="string">"Munez Arizky"</span>,<br>
+            &nbsp;&nbsp;skills: [<span class="string">"HTML"</span>, <span class="string">"CSS"</span>, <span class="string">"JS"</span>],<br>
+            &nbsp;&nbsp;passion: <span class="string">"∞"</span>,<br>
+            &nbsp;&nbsp;<span class="func">build</span>: () => <span class="string">"🚀"</span><br>
+            };
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i class="fas fa-sparkles"></i> LAYANAN</div>
+      <h2 class="section-title">Apa yang Bisa Saya Bantu?</h2>
+      <p class="section-subtitle">Saya menyediakan berbagai layanan web development untuk kebutuhan digital Anda</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon purple"><i class="fas fa-laptop-code"></i></div>
+        <h3>Web Development</h3>
+        <p>Pembuatan website dari awal dengan kode bersih, cepat, dengan menggunakan teknologi modern.</p>
+        <div class="service-price">Mulai dari Rp 200.000</div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon cyan"><i class="fas fa-paint-brush"></i></div>
+        <h3>UI/UX Design</h3>
+        <p>Desain antarmuka yang menarik untuk pengalaman pengguna terbaik di website Anda.</p>
+        <div class="service-price">Mulai dari Rp 100.000</div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon pink"><i class="fas fa-bullhorn"></i></div>
+        <h3>Landing Page</h3>
+        <p>Halaman promosi yang dirancang khusus untuk meningkatkan dan menarik pelanggan baru.</p>
+        <div class="service-price">Mulai dari Rp 150.000</div>
+      </div>
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-icon orange"><i class="fas fa-tools"></i></div>
+        <h3>Maintenance</h3>
+        <p>Pemeliharaan dan update berkala agar website Anda selalu berjalan optimal dan up-to-date.</p>
+        <div class="service-price">Mulai dari Rp 100.000/bln</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="testimonials-bg">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i class="fas fa-diagram-project"></i> PROSES KERJA</div>
+      <h2 class="section-title">Bagaimana Saya Bekerja</h2>
+      <p class="section-subtitle">4 langkah mudah untuk mewujudkan website impian Anda</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-number">01</div>
+        <h4>Konsultasi</h4>
+        <p>Diskusi kebutuhan & goals website Anda</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-number">02</div>
+        <h4>Desain</h4>
+        <p>Membuat mockup & layout yang menarik</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-number">03</div>
+        <h4>Development</h4>
+        <p>Coding website dengan standar tinggi</p>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <div class="process-number">04</div>
+        <h4>Launch</h4>
+        <p>Testing, revisi, & peluncuran website</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i class="fas fa-folder-open"></i> PORTOFOLIO</div>
+      <h2 class="section-title">Proyek Terbaru</h2>
+      <p class="section-subtitle">Beberapa karya terbaik yang sudah saya kerjakan</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-preview"><i class="fas fa-dragon" style="color:var(--accent);opacity:0.6"></i></div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">HTML</span><span class="project-tag">CSS</span><span class="project-tag">JavaScript</span></div>
+          <h3>Web Pengenalan Komodo</h3>
+          <p>Website informatif tentang Pulau Komodo & Taman Nasional Komodo, lengkap dengan galeri dan ensiklopedia.</p>
+          <a href="pulau komodo.html" class="project-link">Lihat Disini<i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-preview p3"><i class="fas fa-briefcase" style="color:var(--cyan);opacity:0.6"></i></div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">HTML</span><span class="project-tag">CSS</span><span class="project-tag">JavaScript</span></div>
+          <h3>Portfolio Website</h3>
+          <p>Website portofolio pribadi dengan dark theme modern, animasi smooth, dan desain premium.</p>
+          <a href="#" class="project-link">Sedang Dilihat <i class="fas fa-eye"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="testimonials-bg">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i class="fas fa-quote-left"></i> TESTIMONI</div>
+      <h2 class="section-title">Kata Mereka</h2>
+      <p class="section-subtitle">Feedback dari orang-orang yang sudah bekerja sama dengan saya</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="testimonial-text">"Munez buat website kelas kami jadi jauh lebih menarik. Desainnya modern dan responsif. Sangat recommended!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div><div class="testimonial-name">Ahmad R.</div><div class="testimonial-role">Ketua Kelas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card reveal">
+      <h2>Siap Membuat Website <span class="gradient-text">Impian Anda?</span></h2>
+      <p>Konsultasi gratis! Mari diskusikan kebutuhan website Anda dan wujudkan bersama.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/6281517674195?text=Halo%20Munez%2C%20saya%20tertarik%20untuk%20dibuatkan%20website" class="btn btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Chat WhatsApp</a>
+        <a href="mailto:munez.arizky15@smp.belajar.id" class="btn btn-primary"><i class="far fa-envelope"></i> Kirim Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i class="far fa-paper-plane"></i> KONTAK</div>
+      <h2 class="section-title">Mari Terhubung</h2>
+      <p class="section-subtitle">Punya pertanyaan atau ingin berkolaborasi? Jangan ragu untuk menghubungi saya</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info-list reveal">
+        <div class="contact-item">
+          <div class="contact-item-icon purple"><i class="far fa-envelope"></i></div>
+          <div><h4>Email</h4><a href="mailto:munez.arizky15@smp.belajar.id">munez.arizky15@smp.belajar.id</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon cyan"><i class="fab fa-instagram"></i></div>
+          <div><h4>Instagram</h4><a href="https://www.instagram.com/nexzez/" target="_blank">@nexzez</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon pink"><i class="fab fa-whatsapp"></i></div>
+          <div><h4>WhatsApp</h4><a href="https://wa.me/6281517674195" target="_blank">Chat langsung</a></div>
+        </div>
+      </div>
+      <form class="contact-form reveal reveal-delay-2" onsubmit="event.preventDefault();alert('Terima kasih! Pesan Anda sudah terkirim 🚀');">
+        <div class="form-group"><input type="text" placeholder="Nama Anda" required></div>
+        <div class="form-group"><input type="email" placeholder="Email Anda" required></div>
+        <div class="form-group"><textarea placeholder="Ceritakan kebutuhan website Anda..." required></textarea></div>
+        <button type="submit" class="btn btn-primary btn-submit"><i class="far fa-paper-plane"></i> Kirim Pesan</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-copy">© 2026 Munez Arizky ·</div>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/nexzez/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/6281517674195" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Hamburger menu
+  const hamburger=document.getElementById('hamburgerBtn'),navMenu=document.getElementById('navMenu');
+  if(hamburger&&navMenu){
+    hamburger.addEventListener('click',()=>{
+      navMenu.classList.toggle('active');
+      const icon=hamburger.querySelector('i');
+      icon.classList.toggle('fa-bars');icon.classList.toggle('fa-times');
+    });
+    document.querySelectorAll('.nav-link').forEach(link=>{
+      link.addEventListener('click',()=>{
+        navMenu.classList.remove('active');
+        const icon=hamburger.querySelector('i');icon.classList.add('fa-bars');icon.classList.remove('fa-times');
+      });
+    });
+  }
+
+  // Navbar scroll effect
+  window.addEventListener('scroll',()=>{
+    document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+  });
+
+  // Scroll reveal
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
+  },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  // Active nav link on scroll
+  const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll',()=>{
+    let current='';const pos=window.scrollY+120;
+    sections.forEach(s=>{if(pos>=s.offsetTop&&pos<s.offsetTop+s.offsetHeight)current=s.id});
+    navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+current)l.classList.add('active')});
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();const t=document.querySelector(a.getAttribute('href'));
+      if(t)t.scrollIntoView({behavior:'smooth'});
+    });
+  });
+})();
+</script>
+</body>
+</html>
